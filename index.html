@@ -1,1 +1,1647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Site educacional sobre radiação solar e aquecimento de piscinas - Projeto Integrador CEP 3º Tri">
+    <title>Sol & Água | Radiação Solar e Aquecimento de Piscinas</title>
+    
+    <!-- VLibras - Acessibilidade em Libras -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    
+    <!-- Fonte para Dislexia -->
+    <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============ RESET E VARIÁVEIS ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --cor-sol: #FFB300;
+            --cor-sol-claro: #FFD54F;
+            --cor-agua: #0288D1;
+            --cor-agua-clara: #4FC3F7;
+            --cor-agua-escura: #01579B;
+            --cor-texto: #1a1a1a;
+            --cor-fundo: #ffffff;
+            --cor-fundo-alt: #f5f9fc;
+            --cor-borda: #e0e0e0;
+            --sombra: 0 4px 12px rgba(0,0,0,0.1);
+            --transicao: 0.3s ease;
+            --fonte-base: 'Poppins', sans-serif;
+            --tamanho-fonte: 16px;
+        }
+        
+        /* Modo Alto Contraste */
+        body.alto-contraste {
+            --cor-sol: #FFFF00;
+            --cor-sol-claro: #FFFF00;
+            --cor-agua: #00FFFF;
+            --cor-agua-clara: #00FFFF;
+            --cor-agua-escura: #0000FF;
+            --cor-texto: #FFFFFF;
+            --cor-fundo: #000000;
+            --cor-fundo-alt: #1a1a1a;
+            --cor-borda: #FFFFFF;
+        }
+        
+        /* Fonte para Dislexia */
+        body.fonte-dislexia {
+            font-family: 'OpenDyslexic', sans-serif !important;
+        }
+        body.fonte-dislexia * {
+            font-family: 'OpenDyslexic', sans-serif !important;
+        }
+        
+        /* Tamanhos de fonte */
+        body.fonte-grande { --tamanho-fonte: 20px; }
+        body.fonte-muito-grande { --tamanho-fonte: 24px; }
+        
+        body {
+            font-family: var(--fonte-base);
+            font-size: var(--tamanho-fonte);
+            background: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+            transition: background var(--transicao), color var(--transicao);
+        }
+        
+        /* ============ SKIP LINK (Acessibilidade) ============ */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--cor-agua-escura);
+            color: white;
+            padding: 8px 16px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* ============ HEADER ============ */
+        header {
+            background: linear-gradient(135deg, var(--cor-agua) 0%, var(--cor-agua-escura) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--sombra);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            animation: girar 20s linear infinite;
+        }
+        
+        @keyframes girar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background var(--transicao);
+        }
+        
+        nav a:hover, nav a:focus {
+            background: rgba(255,255,255,0.2);
+            outline: 3px solid var(--cor-sol);
+            outline-offset: 2px;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* ============ PAINEL DE ACESSIBILIDADE ============ */
+        .acessibilidade-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--cor-sol);
+            color: black;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--sombra);
+            z-index: 99;
+            transition: transform var(--transicao);
+        }
+        
+        .acessibilidade-btn:hover, .acessibilidade-btn:focus {
+            transform: scale(1.1);
+            outline: 3px solid var(--cor-agua);
+        }
+        
+        .acessibilidade-painel {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            background: var(--cor-fundo);
+            border: 2px solid var(--cor-agua);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--sombra);
+            display: none;
+            z-index: 99;
+            min-width: 280px;
+        }
+        
+        .acessibilidade-painel.ativo {
+            display: block;
+        }
+        
+        .acessibilidade-painel h3 {
+            color: var(--cor-agua-escura);
+            margin-bottom: 1rem;
+        }
+        
+        .acessibilidade-painel button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--cor-agua);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background var(--transicao);
+        }
+        
+        .acessibilidade-painel button:hover,
+        .acessibilidade-painel button:focus {
+            background: var(--cor-agua-escura);
+            outline: 3px solid var(--cor-sol);
+        }
+        
+        /* ============ HERO ============ */
+        .hero {
+            background: linear-gradient(135deg, var(--cor-sol-claro) 0%, var(--cor-agua-clara) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--cor-sol) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulsar 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulsar {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--cor-agua-escura);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--cor-texto);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .hero-tags {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            position: relative;
+        }
+        
+        .tag {
+            background: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 600;
+            box-shadow: var(--sombra);
+            color: var(--cor-agua-escura);
+        }
+        
+        /* ============ SEÇÕES ============ */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section:nth-child(even) {
+            background: var(--cor-fundo-alt);
+            max-width: 100%;
+        }
+        
+        section:nth-child(even) > .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--cor-agua-escura);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cor-sol), var(--cor-agua));
+            border-radius: 2px;
+        }
+        
+        h3 {
+            color: var(--cor-agua-escura);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        /* ============ CARDS ============ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: var(--cor-fundo);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--sombra);
+            transition: transform var(--transicao), box-shadow var(--transicao);
+            border-top: 5px solid var(--cor-sol);
+        }
+        
+        .card:hover, .card:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .card-uv { border-top-color: #9C27B0; }
+        .card-vis { border-top-color: #4CAF50; }
+        .card-iv { border-top-color: #F44336; }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* ============ SIMULADORES ============ */
+        .simulador {
+            background: var(--cor-fundo);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--sombra);
+            margin: 2rem 0;
+        }
+        
+        .simulador-titulo {
+            color: var(--cor-agua-escura);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .controles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .controle-grupo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .controle-grupo label {
+            font-weight: 600;
+            color: var(--cor-agua-escura);
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--cor-borda);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--cor-sol);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--cor-sol);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        
+        input[type="range"]:focus {
+            outline: 3px solid var(--cor-agua);
+        }
+        
+        .resultado {
+            background: linear-gradient(135deg, var(--cor-agua-clara), var(--cor-agua));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        .resultado-valor {
+            font-size: 2.5rem;
+            display: block;
+            margin-top: 0.5rem;
+        }
+        
+        /* Canvas do simulador */
+        .canvas-simulador {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: 1rem auto;
+            display: block;
+            border-radius: 12px;
+            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 50%, #4FC3F7 50%, #0288D1 100%);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        /* ============ ESPECTRO INTERATIVO ============ */
+        .espectro {
+            display: flex;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: var(--sombra);
+        }
+        
+        .espectro-faixa {
+            flex: 1;
+            cursor: pointer;
+            transition: flex var(--transicao);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .espectro-faixa:hover, .espectro-faixa:focus {
+            flex: 2;
+            outline: 3px solid var(--cor-sol);
+            outline-offset: -3px;
+        }
+        
+        .faixa-uv { background: linear-gradient(90deg, #4A148C, #7B1FA2); }
+        .faixa-violeta { background: #673AB7; }
+        .faixa-azul { background: #2196F3; }
+        .faixa-verde { background: #4CAF50; }
+        .faixa-amarelo { background: #FFEB3B; color: black; text-shadow: none; }
+        .faixa-laranja { background: #FF9800; }
+        .faixa-vermelho { background: #F44336; }
+        .faixa-iv { background: linear-gradient(90deg, #B71C1C, #7f0000); }
+        
+        .info-espectro {
+            background: var(--cor-fundo-alt);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            min-height: 120px;
+            border-left: 5px solid var(--cor-sol);
+        }
+        
+        /* ============ TABELA DE SENSORES ============ */
+        .tabela-sensores {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--cor-fundo);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+        }
+        
+        .tabela-sensores th, .tabela-sensores td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--cor-borda);
+        }
+        
+        .tabela-sensores th {
+            background: var(--cor-agua);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .tabela-sensores tr:hover {
+            background: var(--cor-fundo-alt);
+        }
+        
+        /* ============ ANIMAÇÃO PROPAGAÇÃO ============ */
+        .animacao-propagacao {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(to bottom, #1a237e 0%, #4FC3F7 60%, #0288D1 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        
+        .sol-animado {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFEB3B, #FF9800);
+            border-radius: 50%;
+            box-shadow: 0 0 60px #FFEB3B;
+            animation: pulsar-sol 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulsar-sol {
+            0%, 100% { box-shadow: 0 0 60px #FFEB3B; }
+            50% { box-shadow: 0 0 100px #FFEB3B, 0 0 150px #FF9800; }
+        }
+        
+        .raio {
+            position: absolute;
+            top: 100px;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, #FFEB3B, transparent);
+            animation: cair 2s linear infinite;
+        }
+        
+        @keyframes cair {
+            0% { height: 0; opacity: 1; }
+            100% { height: 200px; opacity: 0; }
+        }
+        
+        .piscina-animada {
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 80px;
+            background: linear-gradient(to bottom, #4FC3F7, #0288D1);
+            border-radius: 8px 8px 0 0;
+            border: 3px solid #01579B;
+        }
+        
+        /* ============ VÍDEO LIBRAS ============ */
+        .video-libras {
+            background: var(--cor-fundo-alt);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+            text-align: center;
+            border: 2px dashed var(--cor-agua);
+        }
+        
+        .video-placeholder {
+            background: #000;
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+        
+        /* ============ MAPA DO SITE ============ */
+        .mapa-site {
+            background: var(--cor-fundo-alt);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 2rem;
+        }
+        
+        .mapa-site ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+        
+        .mapa-site li {
+            padding: 0.5rem 0;
+            border-left: 3px solid var(--cor-sol);
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+        }
+        
+        .mapa-site a {
+            color: var(--cor-agua-escura);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .mapa-site a:hover, .mapa-site a:focus {
+            text-decoration: underline;
+            color: var(--cor-sol);
+        }
+        
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--cor-agua-escura);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .footer-grid h4 {
+            color: var(--cor-sol);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-grid ul {
+            list-style: none;
+        }
+        
+        .footer-grid a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+        }
+        
+        .footer-grid a:hover {
+            color: var(--cor-sol-claro);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* ============ RESPONSIVIDADE ============ */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            nav ul.ativo {
+                display: flex;
+            }
+            
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+            
+            .canvas-simulador {
+                height: 300px;
+            }
+            
+            .acessibilidade-painel {
+                left: 10px;
+                right: 10px;
+                min-width: auto;
+            }
+        }
+        
+        /* ============ FOCO VISÍVEL ============ */
+        *:focus {
+            outline: 3px solid var(--cor-sol);
+            outline-offset: 2px;
+        }
+        
+        /* ============ ANIMAÇÕES DE ENTRADA ============ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .fade-in.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link para Acessibilidade -->
+    <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+    
+    <!-- ============ HEADER ============ -->
+    <header role="banner">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon" aria-hidden="true">☀️</span>
+                <span>Sol & Água</span>
+            </div>
+            
+            <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu()">☰</button>
+            
+            <nav role="navigation" aria-label="Menu principal">
+                <ul id="menu-principal">
+                    <li><a href="#introducao">Introdução</a></li>
+                    <li><a href="#espectro">Espectro</a></li>
+                    <li><a href="#transferencia">Transferência</a></li>
+                    <li><a href="#simuladores">Simuladores</a></li>
+                    <li><a href="#robotica">Robótica</a></li>
+                    <li><a href="#acessibilidade">Acessibilidade</a></li>
+                    <li><a href="#mapa">Mapa do Site</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-labelledby="hero-titulo">
+        <h1 id="hero-titulo">🌞 Radiação Solar e o Aquecimento da Piscina 💧</h1>
+        <p>Descubra como a energia do Sol viaja 150 milhões de quilômetros para aquecer a água da sua piscina — e como podemos usar sensores e programação para automatizar esse processo!</p>
+        <div class="hero-tags">
+            <span class="tag">🔬 Física</span>
+            <span class="tag">💻 Programação</span>
+            <span class="tag">🤖 Robótica</span>
+            <span class="tag">♿ Acessível</span>
+        </div>
+    </section>
+    
+    <main id="conteudo-principal">
+        <!-- ============ INTRODUÇÃO ============ -->
+        <section id="introducao" aria-labelledby="intro-titulo" class="fade-in">
+            <h2 id="intro-titulo">🌍 Como a Radiação Solar Chega Até Nós?</h2>
+            <p>A <strong>radiação solar</strong> é a energia emitida pelo Sol na forma de <strong>ondas eletromagnéticas</strong>. Essa energia viaja pelo vácuo do espaço a uma velocidade impressionante: <strong>300.000 km/s</strong> (a velocidade da luz!).</p>
+            
+            <p>Após percorrer cerca de <strong>150 milhões de quilômetros</strong>, a radiação atinge a Terra em aproximadamente <strong>8 minutos e 20 segundos</strong>. Ao chegar na atmosfera, parte dela é refletida pelas nuvens, parte é absorvida por gases como o ozônio, e o restante atinge a superfície terrestre — incluindo a água da nossa piscina!</p>
+            
+            <!-- Animação da Propagação -->
+            <div class="animacao-propagacao" aria-label="Animação da propagação da radiação solar até a piscina">
+                <div class="sol-animado" aria-hidden="true"></div>
+                <div class="raio" style="left: 30%; animation-delay: 0s;" aria-hidden="true"></div>
+                <div class="raio" style="left: 45%; animation-delay: 0.5s;" aria-hidden="true"></div>
+                <div class="raio" style="left: 55%; animation-delay: 1s;" aria-hidden="true"></div>
+                <div class="raio" style="left: 70%; animation-delay: 1.5s;" aria-hidden="true"></div>
+                <div class="piscina-animada" aria-hidden="true"></div>
+            </div>
+            
+            <h3>📚 Conceitos Fundamentais</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">🌊</div>
+                    <h3>Ondas Eletromagnéticas</h3>
+                    <p>Diferente do som, a radiação solar não precisa de um meio material para se propagar. Ela viaja pelo vácuo do espaço como uma onda composta por campos elétricos e magnéticos oscilantes.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">⚡</div>
+                    <h3>Fótons</h3>
+                    <p>A radiação também pode ser entendida como partículas de energia chamadas fótons. Cada fóton carrega uma quantidade específica de energia, que depende do seu comprimento de onda.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">🌡️</div>
+                    <h3>Espectro Solar</h3>
+                    <p>O Sol emite radiação em diversos comprimentos de onda: ultravioleta (UV), luz visível e infravermelho (IV). Cada tipo tem efeitos diferentes sobre a água da piscina.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============ ESPECTRO ELETROMAGNÉTICO ============ -->
+        <section id="espectro" aria-labelledby="espectro-titulo" class="fade-in">
+            <h2 id="espectro-titulo">🌈 O Espectro da Radiação Solar</h2>
+            <p>A radiação solar que atinge a Terra é composta por três tipos principais de ondas eletromagnéticas. <strong>Clique em cada faixa</strong> do espectro abaixo para saber mais:</p>
+            
+            <div class="espectro" role="group" aria-label="Espectro eletromagnético interativo">
+                <div class="espectro-faixa faixa-uv" tabindex="0" role="button" aria-label="Ultravioleta" onclick="mostrarInfo('uv')" onkeypress="if(event.key==='Enter')mostrarInfo('uv')">UV</div>
+                <div class="espectro-faixa faixa-violeta" tabindex="0" role="button" onclick="mostrarInfo('vis')" onkeypress="if(event.key==='Enter')mostrarInfo('vis')">Violeta</div>
+                <div class="espectro-faixa faixa-azul" tabindex="0" role="button" onclick="mostrarInfo('vis')" onkeypress="if(event.key==='Enter')mostrarInfo('vis')">Azul</div>
+                <div class="espectro-faixa faixa-verde" tabindex="0" role="button" onclick="mostrarInfo('vis')" onkeypress="if(event.key==='Enter')mostrarInfo('vis')">Verde</div>
+                <div class="espectro-faixa faixa-amarelo" tabindex="0" role="button" onclick="mostrarInfo('vis')" onkeypress="if(event.key==='Enter')mostrarInfo('vis')">Amarelo</div>
+                <div class="espectro-faixa faixa-laranja" tabindex="0" role="button" onclick="mostrarInfo('vis')" onkeypress="if(event.key==='Enter')mostrarInfo('vis')">Laranja</div>
+                <div class="espectro-faixa faixa-vermelho" tabindex="0" role="button" onclick="mostrarInfo('vis')" onkeypress="if(event.key==='Enter')mostrarInfo('vis')">Vermelho</div>
+                <div class="espectro-faixa faixa-iv" tabindex="0" role="button" aria-label="Infravermelho" onclick="mostrarInfo('iv')" onkeypress="if(event.key==='Enter')mostrarInfo('iv')">IV</div>
+            </div>
+            
+            <div class="info-espectro" id="info-espectro" aria-live="polite">
+                <p><strong>👆 Clique em uma faixa do espectro</strong> para ver informações detalhadas sobre aquele tipo de radiação.</p>
+            </div>
+            
+            <h3>🔍 Comparativo entre os Tipos de Radiação</h3>
+            <div class="cards-grid">
+                <div class="card card-uv">
+                    <div class="card-icon" aria-hidden="true">🟣</div>
+                    <h3>Ultravioleta (UV)</h3>
+                    <p><strong>Comprimento de onda:</strong> 100-400 nm<br>
+                    <strong>Energia:</strong> Alta<br>
+                    <strong>Efeito na piscina:</strong> Ajuda a eliminar bactérias e algas, mas em excesso pode degradar materiais e causar queimaduras. Representa cerca de 5% da radiação solar.</p>
+                </div>
+                <div class="card card-vis">
+                    <div class="card-icon" aria-hidden="true">🟢</div>
+                    <h3>Luz Visível</h3>
+                    <p><strong>Comprimento de onda:</strong> 400-700 nm<br>
+                    <strong>Energia:</strong> Média<br>
+                    <strong>Efeito na piscina:</strong> É a parte que conseguimos enxergar! Penetra na água e é parcialmente absorvida, contribuindo para o aquecimento. Representa cerca de 43% da radiação.</p>
+                </div>
+                <div class="card card-iv">
+                    <div class="card-icon" aria-hidden="true">🔴</div>
+                    <h3>Infravermelho (IV)</h3>
+                    <p><strong>Comprimento de onda:</strong> 700 nm - 1 mm<br>
+                    <strong>Energia:</strong> Baixa (por fóton), mas em grande quantidade<br>
+                    <strong>Efeito na piscina:</strong> Principal responsável pelo aquecimento! É absorvido diretamente pela água, transformando-se em calor. Representa cerca de 52% da radiação.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============ TRANSFERÊNCIA DE ENERGIA ============ -->
+        <section id="transferencia" aria-labelledby="transferencia-titulo" class="fade-in">
+            <h2 id="transferencia-titulo">🔥 Como a Energia Aquece a Água?</h2>
+            <p>Quando a radiação solar atinge a superfície da piscina, ocorre uma sequência de fenômenos físicos que transformam a energia luminosa em energia térmica (calor). Vamos entender cada etapa:</p>
+            
+            <h3>1️⃣ Absorção da Radiação</h3>
+            <p>A água é excelente absorvedora de radiação infravermelha. Quando os fótons atingem as moléculas de H₂O, eles transferem sua energia, fazendo com que as moléculas vibrem mais intensamente. Essa vibração molecular é o que chamamos de <strong>aumento de temperatura</strong>.</p>
+            
+            <h3>2️⃣ Reflexão e Transmissão</h3>
+            <p>Nem toda radiação é absorvida. Parte dela é <strong>refletida</strong> de volta para a atmosfera (por isso vemos o brilho na superfície da água) e parte é <strong>transmitida</strong>, penetrando em camadas mais profundas da piscina.</p>
+            
+            <h3>3️⃣ Convecção na Água</h3>
+            <p>A água aquecida na superfície fica menos densa e sobe, enquanto a água mais fria desce. Esse movimento cria <strong>correntes de convecção</strong> que distribuem o calor por toda a piscina.</p>
+            
+            <h3>📊 Fórmula da Energia Solar</h3>
+            <div class="simulador">
+                <p>A energia absorvida pela piscina pode ser estimada pela fórmula:</p>
+                <p style="text-align: center; font-size: 1.3rem; font-weight: 600; color: var(--cor-agua-escura); margin: 1rem 0;">
+                    Q = A × I × t × α
+                </p>
+                <p>Onde:</p>
+                <ul style="margin-left: 2rem;">
+                    <li><strong>Q</strong> = Energia absorvida (em Joules)</li>
+                    <li><strong>A</strong> = Área da piscina (em m²)</li>
+                    <li><strong>I</strong> = Intensidade da radiação solar (em W/m²)</li>
+                    <li><strong>t</strong> = Tempo de exposição (em segundos)</li>
+                    <li><strong>α</strong> = Coeficiente de absorção da água (cerca de 0,85)</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- ============ SIMULADORES ============ -->
+        <section id="simuladores" aria-labelledby="simuladores-titulo" class="fade-in">
+            <h2 id="simuladores-titulo">🎮 Simuladores Interativos</h2>
+            <p>Agora é sua vez de experimentar! Ajuste os parâmetros e veja como a radiação solar afeta o aquecimento da piscina.</p>
+            
+            <!-- Simulador 1: Aquecimento da Piscina -->
+            <div class="simulador">
+                <h3 class="simulador-titulo">☀️ Simulador de Aquecimento da Piscina</h3>
+                <p>Ajuste os controles e veja como cada fator influencia na temperatura final da água:</p>
+                
+                <canvas id="canvas-piscina" class="canvas-simulador" aria-label="Simulação visual do aquecimento da piscina"></canvas>
+                
+                <div class="controles">
+                    <div class="controle-grupo">
+                        <label for="intensidade">Intensidade Solar: <span id="valor-intensidade">800</span> W/m²</label>
+                        <input type="range" id="intensidade" min="200" max="1200" value="800" oninput="atualizarSimulador()">
+                    </div>
+                    <div class="controle-grupo">
+                        <label for="angulo">Ângulo do Sol: <span id="valor-angulo">60</span>°</label>
+                        <input type="range" id="angulo" min="10" max="90" value="60" oninput="atualizarSimulador()">
+                    </div>
+                    <div class="controle-grupo">
+                        <label for="area">Área da Piscina: <span id="valor-area">20</span> m²</label>
+                        <input type="range" id="area" min="5" max="50" value="20" oninput="atualizarSimulador()">
+                    </div>
+                    <div class="controle-grupo">
+                        <label for="tempo">Tempo de Exposição: <span id="valor-tempo">4</span> horas</label>
+                        <input type="range" id="tempo" min="1" max="10" value="4" oninput="atualizarSimulador()">
+                    </div>
+                    <div class="controle-grupo">
+                        <label for="cor-piscina">Cor do Revestimento:</label>
+                        <select id="cor-piscina" onchange="atualizarSimulador()" style="padding: 0.5rem; border-radius: 8px; border: 1px solid var(--cor-borda);">
+                            <option value="0.90">Azul Escuro (α=0,90)</option>
+                            <option value="0.85" selected>Azul Claro (α=0,85)</option>
+                            <option value="0.75">Verde (α=0,75)</option>
+                            <option value="0.60">Branco (α=0,60)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="resultado" aria-live="polite">
+                    <div>🌡️ Temperatura Estimada da Água:</div>
+                    <span class="resultado-valor" id="resultado-temp">28°C</span>
+                    <div style="font-size: 0.9rem; margin-top: 0.5rem;">Energia absorvida: <span id="resultado-energia">0</span> kJ</div>
+                </div>
+            </div>
+            
+            <!-- Simulador 2: Comparador de Sensores -->
+            <div class="simulador">
+                <h3 class="simulador-titulo">🤖 Simulador de Sensores para Automação</h3>
+                <p>Veja como diferentes sensores responderiam em tempo real às condições da piscina:</p>
+                
+                <canvas id="canvas-sensores" class="canvas-simulador" aria-label="Simulação de leitura de sensores"></canvas>
+                
+                <div class="controles">
+                    <div class="controle-grupo">
+                        <label for="hora-dia">Hora do Dia: <span id="valor-hora">12</span>h</label>
+                        <input type="range" id="hora-dia" min="6" max="18" value="12" oninput="atualizarSensores()">
+                    </div>
+                    <div class="controle-grupo">
+                        <label for="nuvens">Cobertura de Nuvens: <span id="valor-nuvens">0</span>%</label>
+                        <input type="range" id="nuvens" min="0" max="100" value="0" oninput="atualizarSensores()">
+                    </div>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true">📷</div>
+                        <h3>Sensor LDR</h3>
+                        <p>Mede a luminosidade ambiente.</p>
+                        <p><strong>Leitura atual:</strong> <span id="ldr-valor">850</span></p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true">🌡️</div>
+                        <h3>Sensor de Temperatura</h3>
+                        <p>Mede a temperatura da água.</p>
+                        <p><strong>Leitura atual:</strong> <span id="temp-valor">25</span>°C</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true">☀️</div>
+                        <h3>Sensor UV</h3>
+                        <p>Mede o índice de radiação UV.</p>
+                        <p><strong>Leitura atual:</strong> <span id="uv-valor">6</span> (Moderado)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============ ROBÓTICA E SENSORES ============ -->
+        <section id="robotica" aria-labelledby="robotica-titulo" class="fade-in">
+            <h2 id="robotica-titulo">🤖 Robótica Aplicada à Piscina</h2>
+            <p>Unindo <strong>Física</strong> e <strong>Programação</strong>, podemos criar um sistema automatizado que monitora e controla o aquecimento da piscina em tempo real!</p>
+            
+            <h3>🔧 Sensores Utilizados no Projeto</h3>
+            <table class="tabela-sensores" aria-label="Tabela de sensores utilizados">
+                <thead>
+                    <tr>
+                        <th scope="col">Sensor</th>
+                        <th scope="col">Função</th>
+                        <th scope="col">Grandeza Física</th>
+                        <th scope="col">Aplicação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>LDR</strong> (Light Dependent Resistor)</td>
+                        <td>Mede intensidade luminosa</td>
+                        <td>Luz (lux)</td>
+                        <td>Detecta se há sol suficiente para aquecer</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DS18B20</strong></td>
+                        <td>Mede temperatura</td>
+                        <td>Temperatura (°C)</td>
+                        <td>Monitora temperatura da água</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GUVA-S12GD</strong></td>
+                        <td>Mede radiação UV</td>
+                        <td>UV (mW/cm²)</td>
+                        <td>Controla risco de queimadura</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HC-SR04</strong> (Ultrassônico)</td>
+                        <td>Mede distância</td>
+                        <td>Nível da água (cm)</td>
+                        <td>Verifica nível da piscina</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DHT22</strong></td>
+                        <td>Temperatura e umidade do ar</td>
+                        <td>°C e %</td>
+                        <td>Monitora condições ambientais</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>💻 Exemplo de Código (Arduino)</h3>
+            <div class="simulador" style="background: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace;">
+                <pre style="overflow-x: auto;"><code>// Sistema de Monitoramento da Piscina
+#include &lt;OneWire.h&gt;
+#include &lt;DallasTemperature.h&gt;
 
+const int LDR_PIN = A0;
+const int TEMP_PIN = 2;
+const int TEMP_DESEJADA = 28;
+
+OneWire oneWire(TEMP_PIN);
+DallasTemperature sensors(&oneWire);
+
+void setup() {
+  Serial.begin(9600);
+  sensors.begin();
+  pinMode(13, OUTPUT); // LED de status
+}
+
+void loop() {
+  int luminosidade = analogRead(LDR_PIN);
+  sensors.requestTemperatures();
+  float tempAgua = sensors.getTempCByIndex(0);
+  
+  Serial.print("Luz: ");
+  Serial.print(luminosidade);
+  Serial.print(" | Temp: ");
+  Serial.println(tempAgua);
+  
+  // Aciona aquecedor se necessário
+  if (tempAgua &lt; TEMP_DESEJADA &amp;&amp; luminosidade &gt; 500) {
+    digitalWrite(13, HIGH);
+    Serial.println("Aquecedor LIGADO");
+  } else {
+    digitalWrite(13, LOW);
+  }
+  
+  delay(2000);
+}</code></pre>
+            </div>
+            
+            <h3>🌱 Impacto Social e Sustentabilidade</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">💚</div>
+                    <h3>Economia de Energia</h3>
+                    <p>Um sistema automatizado pode reduzir em até <strong>40%</strong> o consumo de energia elétrica, aquecendo a piscina apenas quando há sol suficiente.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">♿</div>
+                    <h3>Inclusão Digital</h3>
+                    <p>O site é 100% acessível, com VLibras, alto contraste e navegação por teclado, garantindo que todos possam aprender sobre o tema.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">🌍</div>
+                    <h3>Conscientização</h3>
+                    <p>Ao entender como a energia solar funciona, as pessoas podem adotar soluções mais sustentáveis em suas casas e comunidades.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============ ACESSIBILIDADE ============ -->
+        <section id="acessibilidade" aria-labelledby="acessibilidade-titulo" class="fade-in">
+            <h2 id="acessibilidade-titulo">♿ Acessibilidade e Inclusão</h2>
+            <p>Este site foi desenvolvido seguindo as diretrizes <strong>WCAG 2.1</strong> (Web Content Accessibility Guidelines) para garantir que todas as pessoas possam acessar o conteúdo, independentemente de suas limitações.</p>
+            
+            <h3>🎯 Recursos de Acessibilidade Implementados</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">🤟</div>
+                    <h3>VLibras Integrado</h3>
+                    <p>Plugin oficial do governo brasileiro que traduz o conteúdo para Libras (Língua Brasileira de Sinais). Clique no ícone azul no canto inferior esquerdo.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">🎨</div>
+                    <h3>Alto Contraste</h3>
+                    <p>Modo de alto contraste para pessoas com baixa visão, com cores amarelo e ciano sobre fundo preto.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">🔤</div>
+                    <h3>Fonte para Dislexia</h3>
+                    <p>Opção de usar a fonte OpenDyslexic, desenvolvida especificamente para facilitar a leitura por pessoas com dislexia.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">⌨️</div>
+                    <h3>Navegação por Teclado</h3>
+                    <p>Todos os elementos interativos podem ser acessados usando apenas o teclado (Tab, Enter, Espaço).</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">🔍</div>
+                    <h3>Tamanho de Fonte Ajustável</h3>
+                    <p>Aumente o tamanho da fonte conforme sua necessidade de leitura.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">📺</div>
+                    <h3>Vídeos em Libras</h3>
+                    <p>Estrutura preparada para receber vídeos explicativos em Libras sobre cada seção do site.</p>
+                </div>
+            </div>
+            
+            <!-- Espaço para vídeos em Libras -->
+            <div class="video-libras">
+                <h3>🤟 Vídeos Explicativos em Libras</h3>
+                <p>Em breve, vídeos em Libras explicando cada conceito deste site!</p>
+                <div class="video-placeholder">
+                    <p>📹 Espaço reservado para vídeo em Libras</p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">(Estrutura preparada para receber arquivos .mp4 com intérprete de Libras)</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============ MAPA DO SITE ============ -->
+        <section id="mapa" aria-labelledby="mapa-titulo" class="fade-in">
+            <h2 id="mapa-titulo">🗺️ Mapa do Site</h2>
+            <p>Navegue por todas as seções do site:</p>
+            
+            <div class="mapa-site">
+                <ul>
+                    <li><a href="#introducao">🌍 Introdução - Como a Radiação Solar Chega Até Nós?</a>
+                        <ul>
+                            <li>Ondas Eletromagnéticas</li>
+                            <li>Fótons</li>
+                            <li>Espectro Solar</li>
+                        </ul>
+                    </li>
+                    <li><a href="#espectro">🌈 O Espectro da Radiação Solar</a>
+                        <ul>
+                            <li>Radiação Ultravioleta (UV)</li>
+                            <li>Luz Visível</li>
+                            <li>Radiação Infravermelha (IV)</li>
+                            <li>Comparativo entre os tipos</li>
+                        </ul>
+                    </li>
+                    <li><a href="#transferencia">🔥 Como a Energia Aquece a Água?</a>
+                        <ul>
+                            <li>Absorção da Radiação</li>
+                            <li>Reflexão e Transmissão</li>
+                            <li>Convecção na Água</li>
+                            <li>Fórmula da Energia Solar</li>
+                        </ul>
+                    </li>
+                    <li><a href="#simuladores">🎮 Simuladores Interativos</a>
+                        <ul>
+                            <li>Simulador de Aquecimento da Piscina</li>
+                            <li>Simulador de Sensores</li>
+                        </ul>
+                    </li>
+                    <li><a href="#robotica">🤖 Robótica Aplicada à Piscina</a>
+                        <ul>
+                            <li>Sensores Utilizados</li>
+                            <li>Código Arduino</li>
+                            <li>Impacto Social e Sustentabilidade</li>
+                        </ul>
+                    </li>
+                    <li><a href="#acessibilidade">♿ Acessibilidade e Inclusão</a>
+                        <ul>
+                            <li>VLibras</li>
+                            <li>Alto Contraste</li>
+                            <li>Fonte para Dislexia</li>
+                            <li>Navegação por Teclado</li>
+                            <li>Vídeos em Libras</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <!-- ============ FOOTER ============ -->
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <h4>☀️ Sol & Água</h4>
+                    <p>Projeto Integrador CEP - 3º Trimestre</p>
+                    <p>Tema: Radiação Solar e Aquecimento de Piscinas</p>
+                </div>
+                <div>
+                    <h4>📚 Disciplinas</h4>
+                    <ul>
+                        <li>Física - Tecnociência</li>
+                        <li>Programação</li>
+                        <li>Robótica</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🔗 Navegação</h4>
+                    <ul>
+                        <li><a href="#introducao">Introdução</a></li>
+                        <li><a href="#espectro">Espectro</a></li>
+                        <li><a href="#simuladores">Simuladores</a></li>
+                        <li><a href="#robotica">Robótica</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>♿ Acessibilidade</h4>
+                    <ul>
+                        <li>VLibras integrado</li>
+                        <li>Alto contraste</li>
+                        <li>Fonte para dislexia</li>
+                        <li>Navegação por teclado</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2026 - Projeto Integrador CEP | Desenvolvido com 💙 para fins educacionais</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">📅 Quarta-feira, 04 de Novembro de 2026</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- ============ BOTÃO DE ACESSIBILIDADE ============ -->
+    <button class="acessibilidade-btn" onclick="toggleAcessibilidade()" aria-label="Abrir painel de acessibilidade" aria-expanded="false">
+        ♿
+    </button>
+    
+    <div class="acessibilidade-painel" id="painel-acessibilidade" role="dialog" aria-label="Opções de acessibilidade">
+        <h3>♿ Acessibilidade</h3>
+        <button onclick="toggleAltoContraste()">🎨 Alto Contraste</button>
+        <button onclick="toggleFonteDislexia()">🔤 Fonte para Dislexia</button>
+        <button onclick="aumentarFonte()">🔍 Aumentar Fonte</button>
+        <button onclick="diminuirFonte()">🔎 Diminuir Fonte</button>
+        <button onclick="resetarAcessibilidade()">🔄 Resetar</button>
+    </div>
+    
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        // Inicializar VLibras
+        window.addEventListener('load', () => {
+            if (typeof window.VLibras !== 'undefined') {
+                new window.VLibras.Widget('https://vlibras.gov.br/app');
+            }
+        });
+        
+        // ============ MENU MOBILE ============
+        function toggleMenu() {
+            const menu = document.getElementById('menu-principal');
+            const btn = document.querySelector('.menu-toggle');
+            menu.classList.toggle('ativo');
+            btn.setAttribute('aria-expanded', menu.classList.contains('ativo'));
+        }
+        
+        // ============ PAINEL DE ACESSIBILIDADE ============
+        function toggleAcessibilidade() {
+            const painel = document.getElementById('painel-acessibilidade');
+            const btn = document.querySelector('.acessibilidade-btn');
+            painel.classList.toggle('ativo');
+            btn.setAttribute('aria-expanded', painel.classList.contains('ativo'));
+        }
+        
+        function toggleAltoContraste() {
+            document.body.classList.toggle('alto-contraste');
+        }
+        
+        function toggleFonteDislexia() {
+            document.body.classList.toggle('fonte-dislexia');
+        }
+        
+        let nivelFonte = 0;
+        function aumentarFonte() {
+            if (nivelFonte < 2) {
+                nivelFonte++;
+                aplicarFonte();
+            }
+        }
+        
+        function diminuirFonte() {
+            if (nivelFonte > 0) {
+                nivelFonte--;
+                aplicarFonte();
+            }
+        }
+        
+        function aplicarFonte() {
+            document.body.classList.remove('fonte-grande', 'fonte-muito-grande');
+            if (nivelFonte === 1) document.body.classList.add('fonte-grande');
+            if (nivelFonte === 2) document.body.classList.add('fonte-muito-grande');
+        }
+        
+        function resetarAcessibilidade() {
+            document.body.classList.remove('alto-contraste', 'fonte-dislexia', 'fonte-grande', 'fonte-muito-grande');
+            nivelFonte = 0;
+        }
+        
+        // ============ ESPECTRO INTERATIVO ============
+        const infoEspectro = {
+            uv: {
+                titulo: '🟣 Radiação Ultravioleta (UV)',
+                conteudo: `<strong>Comprimento de onda:</strong> 100 a 400 nanômetros<br>
+                <strong>Energia:</strong> ALTA - é a mais energética da luz solar<br>
+                <strong>Na piscina:</strong> A radiação UV é responsável por eliminar bactérias, vírus e algas da água. Muitos sistemas de purificação usam lâmpadas UV. Porém, em excesso, pode causar queimaduras na pele dos banhistas e degradar materiais plásticos e borrachas da piscina.<br>
+                <strong>Curiosidade:</strong> A camada de ozônio bloqueia a maior parte do UV-C (o mais perigoso), mas o UV-A e UV-B chegam até nós.`
+            },
+            vis: {
+                titulo: '🌈 Luz Visível',
+                conteudo: `<strong>Comprimento de onda:</strong> 400 a 700 nanômetros<br>
+                <strong>Energia:</strong> MÉDIA - é a única que nossos olhos conseguem detectar<br>
+                <strong>Na piscina:</strong> A luz visível penetra na água e dá a ela a coloração azulada que conhecemos. A água absorve mais o vermelho e o infravermelho, e reflete/espalha o azul. Essa radiação contribui para o aquecimento, mas em menor grau que o infravermelho.<br>
+                <strong>Curiosidade:</strong> Cada cor do arco-íris tem um comprimento de onda diferente: violeta (400nm) até vermelho (700nm).`
+            },
+            iv: {
+                titulo: '🔴 Radiação Infravermelha (IV)',
+                conteudo: `<strong>Comprimento de onda:</strong> 700 nanômetros a 1 milímetro<br>
+                <strong>Energia:</strong> BAIXA por fóton, mas em GRANDE QUANTIDADE<br>
+                <strong>Na piscina:</strong> É a PRINCIPAL responsável pelo aquecimento da água! A água absorve fortemente a radiação infravermelha, convertendo-a em energia térmica (calor). Representa mais da metade da energia solar que chega à Terra.<br>
+                <strong>Curiosidade:</strong> Nós também emitimos radiação infravermelha! Câmeras térmicas conseguem "enxergar" pessoas no escuro através dessa radiação.`
+            }
+        };
+        
+        function mostrarInfo(tipo) {
+            const info = infoEspectro[tipo];
+            const div = document.getElementById('info-espectro');
+            div.innerHTML = `<h3>${info.titulo}</h3><p>${info.conteudo}</p>`;
+        }
+        
+        // ============ SIMULADOR DE AQUECIMENTO ============
+        function atualizarSimulador() {
+            const intensidade = parseFloat(document.getElementById('intensidade').value);
+            const angulo = parseFloat(document.getElementById('angulo').value);
+            const area = parseFloat(document.getElementById('area').value);
+            const tempo = parseFloat(document.getElementById('tempo').value);
+            const absorcao = parseFloat(document.getElementById('cor-piscina').value);
+            
+            // Atualizar labels
+            document.getElementById('valor-intensidade').textContent = intensidade;
+            document.getElementById('valor-angulo').textContent = angulo;
+            document.getElementById('valor-area').textContent = area;
+            document.getElementById('valor-tempo').textContent = tempo;
+            
+            // Cálculos físicos
+            const fatorAngulo = Math.sin(angulo * Math.PI / 180);
+            const tempoSegundos = tempo * 3600;
+            const energia = area * intensidade * tempoSegundos * absorcao * fatorAngulo;
+            const energiaKJ = energia / 1000;
+            
+            // Massa de água (considerando profundidade média de 1,5m)
+            const volume = area * 1.5; // m³
+            const massa = volume * 1000; // kg
+            const calorEspecifico = 4.186; // kJ/(kg·°C)
+            
+            // Variação de temperatura
+            const deltaT = energiaKJ / (massa * calorEspecifico);
+            const tempInicial = 22; // °C
+            const tempFinal = tempInicial + deltaT;
+            
+            // Atualizar resultado
+            document.getElementById('resultado-temp').textContent = tempFinal.toFixed(1) + '°C';
+            document.getElementById('resultado-energia').textContent = energiaKJ.toFixed(0);
+            
+            // Atualizar canvas
+            desenharPiscina(intensidade, angulo, tempFinal, absorcao);
+        }
+        
+        function desenharPiscina(intensidade, angulo, temp, absorcao) {
+            const canvas = document.getElementById('canvas-piscina');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = canvas.offsetWidth;
+            const h = canvas.height = canvas.offsetHeight;
+            
+            // Limpar
+            ctx.clearRect(0, 0, w, h);
+            
+            // Céu (gradiente baseado na intensidade)
+            const ceuCima = intensidade > 800 ? '#87CEEB' : intensidade > 500 ? '#B0C4DE' : '#708090';
+            const ceuBaixo = intensidade > 800 ? '#E0F6FF' : '#B0C4DE';
+            const gradCeu = ctx.createLinearGradient(0, 0, 0, h * 0.5);
+            gradCeu.addColorStop(0, ceuCima);
+            gradCeu.addColorStop(1, ceuBaixo);
+            ctx.fillStyle = gradCeu;
+            ctx.fillRect(0, 0, w, h * 0.5);
+            
+            // Sol
+            const tamanhoSol = 30 + (intensidade / 1200) * 40;
+            const anguloRad = angulo * Math.PI / 180;
+            const solX = w * 0.2 + (w * 0.6) * (1 - Math.cos(anguloRad));
+            const solY = h * 0.5 - Math.sin(anguloRad) * h * 0.4;
+            
+            const gradSol = ctx.createRadialGradient(solX, solY, 0, solX, solY, tamanhoSol * 2);
+            gradSol.addColorStop(0, '#FFEB3B');
+            gradSol.addColorStop(0.5, '#FF9800');
+            gradSol.addColorStop(1, 'rgba(255,152,0,0)');
+            ctx.fillStyle = gradSol;
+            ctx.beginPath();
+            ctx.arc(solX, solY, tamanhoSol * 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#FFEB3B';
+            ctx.beginPath();
+            ctx.arc(solX, solY, tamanhoSol, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Raios solares
+            ctx.strokeStyle = 'rgba(255,235,59,0.6)';
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 8; i++) {
+                const ang = (i / 8) * Math.PI * 2;
+                ctx.beginPath();
+                ctx.moveTo(solX + Math.cos(ang) * (tamanhoSol + 5), solY + Math.sin(ang) * (tamanhoSol + 5));
+                ctx.lineTo(solX + Math.cos(ang) * (tamanhoSol + 20), solY + Math.sin(ang) * (tamanhoSol + 20));
+                ctx.stroke();
+            }
+            
+            // Pisciana (cor baseada na temperatura)
+            const corAgua = temp > 35 ? '#FF6B6B' : temp > 30 ? '#FFA07A' : temp > 25 ? '#4FC3F7' : '#0288D1';
+            const gradAgua = ctx.createLinearGradient(0, h * 0.5, 0, h);
+            gradAgua.addColorStop(0, corAgua);
+            gradAgua.addColorStop(1, '#01579B');
+            ctx.fillStyle = gradAgua;
+            ctx.fillRect(w * 0.1, h * 0.5, w * 0.8, h * 0.45);
+            
+            // Borda da piscina
+            ctx.strokeStyle = '#01579B';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(w * 0.1, h * 0.5, w * 0.8, h * 0.45);
+            
+            // Ondas na água
+            ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                for (let x = w * 0.1; x < w * 0.9; x += 5) {
+                    const y = h * 0.55 + i * 20 + Math.sin(x * 0.05 + Date.now() * 0.001) * 3;
+                    if (x === w * 0.1) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+            
+            // Termômetro
+            ctx.fillStyle = 'white';
+            ctx.fillRect(w * 0.85, h * 0.55, 30, 120);
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(w * 0.85, h * 0.55, 30, 120);
+            
+            const nivelTermometro = Math.min(1, Math.max(0, (temp - 15) / 30));
+            const alturaMercurio = nivelTermometro * 100;
+            ctx.fillStyle = temp > 30 ? '#F44336' : temp > 25 ? '#FF9800' : '#2196F3';
+            ctx.fillRect(w * 0.85 + 10, h * 0.55 + 110 - alturaMercurio, 10, alturaMercurio);
+            
+            // Texto da temperatura
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px Poppins';
+            ctx.textAlign = 'center';
+            ctx.fillText(temp.toFixed(1) + '°C', w * 0.5, h * 0.75);
+        }
+        
+        // ============ SIMULADOR DE SENSORES ============
+        function atualizarSensores() {
+            const hora = parseFloat(document.getElementById('hora-dia').value);
+            const nuvens = parseFloat(document.getElementById('nuvens').value);
+            
+            document.getElementById('valor-hora').textContent = hora;
+            document.getElementById('valor-nuvens').textContent = nuvens;
+            
+            // Cálculo da luminosidade (pico ao meio-dia)
+            const fatorHora = 1 - Math.abs(hora - 12) / 6;
+            const fatorNuvens = 1 - (nuvens / 100) * 0.8;
+            const luminosidade = Math.round(1023 * fatorHora * fatorNuvens);
+            
+            // Temperatura da água (baseada na luminosidade acumulada)
+            const tempAgua = (20 + luminosidade / 1023 * 15).toFixed(1);
+            
+            // Índice UV
+            const uvIndex = Math.round(11 * fatorHora * fatorNuvens);
+            let uvClassificacao = 'Baixo';
+            if (uvIndex >= 3 && uvIndex < 6) uvClassificacao = 'Moderado';
+            else if (uvIndex >= 6 && uvIndex < 8) uvClassificacao = 'Alto';
+            else if (uvIndex >= 8 && uvIndex < 11) uvClassificacao = 'Muito Alto';
+            else if (uvIndex >= 11) uvClassificacao = 'Extremo';
+            
+            document.getElementById('ldr-valor').textContent = luminosidade;
+            document.getElementById('temp-valor').textContent = tempAgua;
+            document.getElementById('uv-valor').textContent = `${uvIndex} (${uvClassificacao})`;
+            
+            desenharSensores(luminosidade, tempAgua, uvIndex, hora);
+        }
+        
+        function desenharSensores(ldr, temp, uv, hora) {
+            const canvas = document.getElementById('canvas-sensores');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = canvas.offsetWidth;
+            const h = canvas.height = canvas.offsetHeight;
+            
+            ctx.clearRect(0, 0, w, h);
+            
+            // Fundo (céu baseado na hora)
+            let corCeu;
+            if (hora < 7 || hora > 17) corCeu = '#1a237e';
+            else if (hora < 9 || hora > 15) corCeu = '#FF9800';
+            else corCeu = '#4FC3F7';
+            
+            const grad = ctx.createLinearGradient(0, 0, 0, h);
+            grad.addColorStop(0, corCeu);
+            grad.addColorStop(1, '#0288D1');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, w, h);
+            
+            // Sol
+            const anguloSol = ((hora - 6) / 12) * Math.PI;
+            const solX = w * 0.1 + (w * 0.8) * ((hora - 6) / 12);
+            const solY = h * 0.7 - Math.sin(anguloSol) * h * 0.5;
+            
+            if (hora >= 6 && hora <= 18) {
+                ctx.fillStyle = '#FFEB3B';
+                ctx.beginPath();
+                ctx.arc(solX, solY, 30, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Painéis dos sensores
+            ctx.fillStyle = 'rgba(255,255,255,0.9)';
+            ctx.fillRect(20, 20, 180, 80);
+            ctx.fillRect(20, 110, 180, 80);
+            ctx.fillRect(20, 200, 180, 80);
+            
+            ctx.fillStyle = '#01579B';
+            ctx.font = 'bold 14px Poppins';
+            ctx.textAlign = 'left';
+            ctx.fillText('📷 LDR', 30, 45);
+            ctx.fillText(`Leitura: ${ldr}`, 30, 70);
+            ctx.fillText(`Luz: ${Math.round(ldr/1023*100)}%`, 30, 90);
+            
+            ctx.fillText('🌡️ Temperatura', 30, 135);
+            ctx.fillText(`Água: ${temp}°C`, 30, 160);
+            ctx.fillText(`Status: ${temp > 28 ? 'Ideal' : 'Aquecendo'}`, 30, 180);
+            
+            ctx.fillText('☀️ UV Index', 30, 225);
+            ctx.fillText(`Nível: ${uv}`, 30, 250);
+            ctx.fillText(`Risco: ${uv > 8 ? 'ALTO' : uv > 5 ? 'Médio' : 'Baixo'}`, 30, 270);
+            
+            // Gráfico de barras à direita
+            ctx.fillStyle = 'rgba(255,255,255,0.9)';
+            ctx.fillRect(w - 200, 20, 180, 260);
+            
+            ctx.fillStyle = '#01579B';
+            ctx.font = 'bold 14px Poppins';
+            ctx.textAlign = 'center';
+            ctx.fillText('📊 Leituras em Tempo Real', w - 110, 45);
+            
+            // Barras
+            const barWidth = 40;
+            const barMaxHeight = 150;
+            
+            // LDR
+            const hLDR = (ldr / 1023) * barMaxHeight;
+            ctx.fillStyle = '#FFB300';
+            ctx.fillRect(w - 180, 240 - hLDR, barWidth, hLDR);
+            ctx.fillStyle = '#000';
+            ctx.font = '11px Poppins';
+            ctx.fillText('LDR', w - 160, 255);
+            
+            // Temp
+            const hTemp = ((temp - 15) / 30) * barMaxHeight;
+            ctx.fillStyle = '#F44336';
+            ctx.fillRect(w - 125, 240 - hTemp, barWidth, hTemp);
+            ctx.fillStyle = '#000';
+            ctx.fillText('Temp', w - 105, 255);
+            
+            // UV
+            const hUV = (uv / 11) * barMaxHeight;
+            ctx.fillStyle = '#9C27B0';
+            ctx.fillRect(w - 70, 240 - hUV, barWidth, hUV);
+            ctx.fillStyle = '#000';
+            ctx.fillText('UV', w - 50, 255);
+        }
+        
+        // ============ ANIMAÇÕES DE ENTRADA ============
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visivel');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // ============ INICIALIZAÇÃO ============
+        window.addEventListener('load', () => {
+            atualizarSimulador();
+            atualizarSensores();
+            
+            // Animação dos raios
+            setInterval(() => {
+                const raios = document.querySelectorAll('.raio');
+                raios.forEach(raio => {
+                    raio.style.animation = 'none';
+                    setTimeout(() => raio.style.animation = '', 10);
+                });
+            }, 2000);
+        });
+        
+        // Redimensionar canvas
+        window.addEventListener('resize', () => {
+            atualizarSimulador();
+            atualizarSensores();
+        });
+        
+        // Navegação suave
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Fechar menu mobile se aberto
+                    document.getElementById('menu-principal').classList.remove('ativo');
+                }
+            });
+        });
+    </script>
+    
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+</body>
+</html>
